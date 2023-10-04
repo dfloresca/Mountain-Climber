@@ -1,0 +1,38 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding-top: 1em;
+    text-align: center;
+    background-color: skyblue;
+    background-size: cover;
+    background-repeat: space;
+}
+
+canvas {
+    background-image: url("./img/Mountbaker.jpeg");
+    background-size: cover;
+    width: cover;
+    height: cover;
+}
+
+#container {
+    max-width: 50em;
+    /* height: 70vh; */
+    background-color: rgba(5, 153, 62, 0.682);
+    margin: 0 auto;
+    padding: 1em;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-rows: .25fr .5fr .25fr;
+    grid-template-columns: .25fr .5fr .25fr;
+    grid-template-areas: "top-left top-left top-right"
+                          "game game game"
+                          "btm-left btm-right btm-right";
+    }
+
+main {
+    grid-area: game;
+}
