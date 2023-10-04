@@ -1,6 +1,7 @@
 html, body {
     margin: 0;
     padding: 0;
+    font-family: 'Mountains of Christmas', serif;
 }
 
 body {
@@ -19,7 +20,7 @@ canvas {
 }
 
 #container {
-    max-width: 50em;
+    max-width: 1000px;
     /* height: 70vh; */
     background-color: rgba(5, 153, 62, 0.682);
     margin: 0 auto;
@@ -32,7 +33,26 @@ canvas {
                           "game game game"
                           "btm-left btm-right btm-right";
     }
+#top-left, #top-right, #btm-left, #btm-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#top-left {
+    grid-area: top-left;
+}
+#top-right {
+    grid-area: top-right;
+}
 
 main {
     grid-area: game;
+}
+
+#btm-left {
+    grid-area: btm-left;
+}
+
+#btm-right {
+    grid-area: btm-right;
 }

@@ -8,17 +8,25 @@ const status = document.querySelector('#status');
 const ctx = game.getContext('2d');
 const abomasnowImage = document.querySelector('#abomasnow');
 const heroImage = document.querySelector('#hero');
-const flagImage = document.querySelector('#flag')
+const flagImage = document.querySelector('#flag');
+let heroRandomX = Math.floor(Math.random() * game.width);
+let heroRandomY = Math.floor(Math.random() *game.height);
+let monsterRandomX = Math.floor(Math.random() * game.width);
+let monsterRandomY = Math.floor(Math.random() *game.height);
+let flagRandomX = Math.floor(Math.random() * game.width);
+let flagRandomY = Math.floor(Math.random() *game.height);
 let hero;
 let monster;
+let victoryFlag;
 
 //paint initial screen
 //event listener
 
 window.addEventListener('DOMContentLoaded', function () {
     //load the hero and monster on screen
-    hero = new Climber(50, 50, heroImage, 32, 32);
-    monster = new Climber(100, 100, abomasnowImage, 50, 50);
+    hero = new Climber(heroRandomX, game.height-32, heroImage, 32, 32);
+    monster = new Climber(100, 100, abomasnowImage, 64, 64);
+    victoryFlag = new Flag (flagRandomX, 0, flagImage, 25, 25);
 
     let runGame = this.setInterval(gameLoop, 60);
 });
@@ -44,7 +52,20 @@ class Climber {
         }
     }
 }
+class Flag {
+    constructor(x, y, image, width, height){
+        this.x = x;
+        this.y = y;
+        this.image = image;
+        this.width = width;
+        this.height = height;
+        this.exists = true;
 
+        this.render = function() {
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+        }
+    }
+}
 //keyboard logic
 function movementHandler(e) {
     if (e.key === 'w' || e.key === 'ArrowUp') {
@@ -71,4 +92,8 @@ function gameLoop() {
         monster.render();
     }
     hero.render();
+    //check to see if flag has been obtained
+    if (victoryFlag.exists) {
+        victoryFlag.render();
+    }
 }
