@@ -11,14 +11,9 @@ const glalieImage = document.querySelector('#glalie');
 const heroImage = document.querySelector('#hero');
 const flagImage = document.querySelector('#flag');
 const finishFlagImage = document.querySelector('#finishflag');
-const monsters = [];
 
 let heroRandomX = Math.floor(Math.random() * game.width);
 let heroRandomY = Math.floor(Math.random() * game.height);
-let monsterRandomX = Math.floor(Math.random() * game.width);
-let monsterRandomY = Math.floor(Math.random() * game.height);
-let flagRandomX = Math.floor(Math.random() * game.width);
-let flagRandomY = Math.floor(Math.random() * game.height);
 let hero;
 let monster;
 let monster2;
@@ -30,9 +25,9 @@ let finishFlag;
 window.addEventListener('DOMContentLoaded', function () {
     //load the hero and monster on screen
     hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
-    monster = new Climber(monsterRandomX + 120, monsterRandomY + 100, abomasnowImage, 64, 64);
+    monster = new Climber(game.width * .85, game.height *.60, abomasnowImage, 96, 96);
+    monster2 = new Climber(game.width *.55, game.height * .40, glalieImage, 96, 96);
     checkPointFlag = new Flag(game.width - 100, game.height * .35, flagImage, 25, 25);
-    finishFlag = new Flag(0, game.height - 50, finishFlagImage, 25, 25);
 
     let runGame = this.setInterval(gameLoop, 60);
 });
@@ -52,7 +47,6 @@ class Climber {
         this.width = width;
         this.height = height;
         this.alive = true;
-        this.summoned = false;
 
         this.render = function () {
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
@@ -77,13 +71,13 @@ class Flag {
 //keyboard logic
 function movementHandler(e) {
     if (e.key === 'w' || e.key === 'ArrowUp') {
-        hero.y - 10 >= 0 ? (hero.y -= 10) : null;
+        hero.y - 20 >= 0 ? (hero.y -= 20) : null;
     } else if (e.key === 's' || e.key === 'ArrowDown') {
-        hero.y + 10 <= game.height - hero.height ? (hero.y += 10) : null;
+        hero.y + 20 <= game.height - hero.height ? (hero.y += 20) : null;
     } else if (e.key === 'a' || e.key === 'ArrowLeft') {
-        hero.x - 10 >= 0 ? (hero.x -= 10) : null;
+        hero.x - 20 >= 0 ? (hero.x -= 20) : null;
     } else if (e.key === 'd' || e.key === 'ArrowRight') {
-        hero.x + 10 <= game.width - hero.width ? (hero.x += 10) : null;
+        hero.x + 20 <= game.width - hero.width ? (hero.x += 20) : null;
     }
 }
 //helper functions
@@ -94,26 +88,26 @@ function respawnHero() {
     hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
     return true;
 }
-function monsterParty() {
-    while (monsters.length < 5) {
-        let monsterRandomX = Math.floor(Math.random() * game.width);
-        let monsterRandomY = Math.floor(Math.random() * game.height);
-        const newMonster = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96)
-        monsters.push(newMonster);
-    }
-    return monsters, monster.summoned = true;
-}
-function summonMonsters() {
-    console.log('calling the monsters');
-    for (let i = 0; i < monsters.length; i++) {
-        monsters[i].render();
-    }
-}
 
 function spawnFinishFlag() {
     checkPointFlag.exists = false;
     checkPointFlag.obtained = true;
+    finishFlag = new Flag(50, game.height - 50, finishFlagImage, 25, 25);
     finishFlag.render();
+}
+
+function youWin() {
+    //victory condition
+    finishFlag.exists = false;
+    ctx.font = "150px Mountains of Christmas";
+    ctx.textAlign = "center"
+    ctx.fillText('YOU WIN', game.width / 2, game.height / 2);
+}
+
+function youLose() {
+    ctx.font = "75px Mountains of Christmas";
+    ctx.textAlign = "center"
+    ctx.fillText('You have run out of lives, you Lose!', game.width / 2, game.height / 2);
 }
 //game processes
 function gameLoop() {
@@ -127,6 +121,10 @@ function gameLoop() {
         monster.render();
         let hit = detectHit(hero, monster)
     }
+    if (monster2.alive) {
+        monster2.render();
+        let hit = detectHit(hero, monster2);
+    }
     //check if hero is alive
     if (hero.alive) {
         hero.render();
@@ -137,28 +135,22 @@ function gameLoop() {
         let capture = detectCapture(hero, checkPointFlag)
     } else {
         finishFlag.render();
-        return monsterParty();
-    }
-    if (finishFlag.exists) {
         let victoryHit = victory(hero, finishFlag)
     }
-    if (monster.summoned) {
-        return summonMonsters();
+
+
+    if (Number(lives.textContent) === 0) {
+        hero.alive = false;
+        ctx.clearRect(0, 0, game.width, game.height);
+        return youLose();
+    }
+    if (finishFlag.obtained && checkPointFlag.obtained) {
+        ctx.clearRect(0, 0, game.width, game.height);
+        return youWin();
     }
 
 }
 
-//defeat condition
-if (Number(lives.textContent) === 0) {
-    alert('you have lost');
-    ctx.clearRect(0, 0, game.width, game.height);
-}
-// //victory condition
-// if (finishFlag.exists === false) {
-//     alert('Congratulations, you win!!!');
-//     ctx.clearRect(0,0, game.width, game.height);
-//     return gameLoop();
-// }
 
 //collision detection
 function detectHit(player, opp) {
@@ -200,6 +192,8 @@ function victory(player, opp) {
     );
 
     if (victoryHitTest) {
+        console.log('flag obtained')
         finishFlag.exists = false;
+        finishFlag.obtained = true;        
     }
 }
