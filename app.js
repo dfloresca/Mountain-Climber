@@ -26,7 +26,7 @@ let finishFlag;
 
 window.addEventListener('DOMContentLoaded', function () {
     //load the hero and monster on screen
-    hero = new Climber(heroRandomX, game.height - 32, heroImage, 32, 32);
+    hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
     monster = new Climber(monsterRandomX + 120, monsterRandomY + 100, abomasnowImage, 64, 64);
     checkPointFlag = new Flag(game.width - 100, game.height * .35, flagImage, 25, 25);
     finishFlag = new Flag(0, game.height - 50, finishFlagImage, 25, 25);
@@ -63,6 +63,7 @@ class Flag {
         this.width = width;
         this.height = height;
         this.exists = true;
+        this.obtained = false;
 
         this.render = function () {
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
@@ -86,9 +87,13 @@ function respawnHero() {
     hero.alive = false;
     let newLives = Number(lives.textContent) - 1;
     lives.textContent = newLives;
-    hero = new Climber(heroRandomX, game.height - 32, heroImage, 32, 32)
+    hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
     return true;
 }
+// function monsterParty() {
+//     for (let i = 1)
+
+
 
 function spawnFinishFlag() {
     checkPointFlag.exists = false;
@@ -117,15 +122,22 @@ function gameLoop() {
     } else {
         finishFlag.render();
     }
-if(finishFlag.exists) {
-    let victoryHit= victory(hero, finishFlag)
-}
-    //defeat condition
-    if( Number(lives.textContent) === 0) {
-        alert('GAME OVER! Please try again');
-        ctx.clearRect(0,0, game.width, game.height)
+    if (finishFlag.exists) {
+        let victoryHit = victory(hero, finishFlag)
     }
 }
+
+  //defeat condition
+    if( Number(lives.textContent) === 0) {
+        alert('you have lost');
+        ctx.clearRect(0,0, game.width, game.height);
+         }
+    // //victory condition
+    // if (finishFlag.exists === false) {
+    //     alert('Congratulations, you win!!!');
+    //     ctx.clearRect(0,0, game.width, game.height);
+    //     return gameLoop();
+    // }
 
 //collision detection
 function detectHit(player, opp) {
@@ -167,8 +179,6 @@ function victory(player, opp) {
     );
 
     if (victoryHitTest) {
-        //add flag to inventory
-        alert('Congratulations you win!!!')
-        ctx.clearRect(0, 0, game.width, game.height);
+        finishFlag.exists = false;
     }
 }
