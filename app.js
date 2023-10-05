@@ -90,13 +90,25 @@ function respawnHero() {
     hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
     return true;
 }
-// function monsterParty() {
-//     for (let i = 1)
-
+function monsterParty() {
+    let monsterRandomX = Math.floor(Math.random() * game.width);
+    let monsterRandomY = Math.floor(Math.random() * game.height);
+    const monsterA = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
+    const monsterB = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
+    const monsterC = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
+    const monsterD = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
+    const monsterE = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
+    monsterA.render();
+    monsterB.render();
+    monsterC.render();
+    monsterD.render();
+    monsterE.render();
+}
 
 
 function spawnFinishFlag() {
     checkPointFlag.exists = false;
+    checkPointFlag.obtained = true;
     finishFlag.render();
 }
 //game processes
@@ -121,23 +133,24 @@ function gameLoop() {
         let capture = detectCapture(hero, checkPointFlag)
     } else {
         finishFlag.render();
+        return monsterParty();
     }
     if (finishFlag.exists) {
         let victoryHit = victory(hero, finishFlag)
     }
 }
 
-  //defeat condition
-    if( Number(lives.textContent) === 0) {
-        alert('you have lost');
-        ctx.clearRect(0,0, game.width, game.height);
-         }
-    // //victory condition
-    // if (finishFlag.exists === false) {
-    //     alert('Congratulations, you win!!!');
-    //     ctx.clearRect(0,0, game.width, game.height);
-    //     return gameLoop();
-    // }
+//defeat condition
+if (Number(lives.textContent) === 0) {
+    alert('you have lost');
+    ctx.clearRect(0, 0, game.width, game.height);
+}
+// //victory condition
+// if (finishFlag.exists === false) {
+//     alert('Congratulations, you win!!!');
+//     ctx.clearRect(0,0, game.width, game.height);
+//     return gameLoop();
+// }
 
 //collision detection
 function detectHit(player, opp) {
