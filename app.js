@@ -26,8 +26,8 @@ let finishFlag;
 window.addEventListener('DOMContentLoaded', function () {
     //load the hero and monster on screen
     hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
-    monster = new Climber(game.width * .85, game.height *.60, abomasnowImage, 96, 96);
-    monster2 = new Climber(game.width *.55, game.height * .40, glalieImage, 96, 96);
+    monster = new Climber(game.width * .85, game.height * .60, abomasnowImage, 96, 96);
+    monster2 = new Climber(game.width * .55, game.height * .40, glalieImage, 96, 96);
     checkPointFlag = new Flag(game.width - 100, game.height * .35, flagImage, 25, 25);
 
     let runGame = this.setInterval(gameLoop, 60);
@@ -67,6 +67,63 @@ class Flag {
 
         this.render = function () {
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+        }
+    }
+}
+class Enemy extends Climber {
+    constructor(...args) {
+        super(...args)
+
+
+        this.monsterAIMovement = function () {
+            // make a conditional for each direction
+            // first move the monster up, then move to the right, then to the left, the down and repeat
+            console.log('monster AI');
+            this.moveUp();
+            this.moveUp();
+
+            setTimeout(() => {
+                this.moveRight();
+                this.moveRight();
+            }, 500);
+
+            setTimeout(() => {
+                this.moveDown();
+                this.moveDown();
+            }, 1000);
+
+        }
+
+        this.moveUp = function () {
+            if (this.y - 10 >= 0) {
+                this.y -= 10;
+            } else {
+                this.y = 100
+            }
+        }
+
+        this.moveRight = function () {
+            if (this.x + 10 <= game.width - this.width) {
+                this.x += 10;
+            } else {
+                this.x = 100;
+            }
+        }
+
+        this.moveDown = function () {
+            if (this.y + 10 <= game.height - this.height) {
+                this.y += 10
+            } else {
+                this.y = 100;
+            }
+        }
+
+        this.moveLeft = function () {
+            if (this.x - 10 >= 10) {
+                this.x -= 10
+            } else {
+                this.x = 100;
+            }
         }
     }
 }
@@ -203,6 +260,8 @@ function victory(player, opp) {
 
     if (victoryHitTest) {
         finishFlag.exists = false;
-        finishFlag.obtained = true;        
+        finishFlag.obtained = true;
     }
 }
+
+//==============AI Movement ====================
