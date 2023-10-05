@@ -23,10 +23,10 @@ Hit detection is used to track contact with the flags as well as the monsters. W
 INSTALLATION INSTRUCTIONS
 Open the web page to begin playing. 
 how to play:
-Move the hero 'up' by using 'w' or 'UpArrow'
-Move the hero 'left' by using 'a' or 'LeftArrow'
-Move the hero 'down' by using 's' or 'DownArrow'
-Move the hero 'right' by using 'd' or 'RightArrow'
+* Move the hero 'up' by using 'w' or 'UpArrow'
+* Move the hero 'left' by using 'a' or 'LeftArrow'
+* Move the hero 'down' by using 's' or 'DownArrow'
+* Move the hero 'right' by using 'd' or 'RightArrow'
 
 APPROACH TAKEN:
 I utilized a similar approach as our shrek crawler game.
@@ -97,9 +97,9 @@ class Flag {
 ``` 
 
 UNSOLVED PROBLEMS:
-[ ] getting 5 monsters to spawn upon capturing the checkpoint flag 
-[ ] randomizing the monster movement
+[] getting 5 monsters to spawn upon capturing the checkpoint flag 
+[] randomizing the monster movement
 
 STRETCH GOALS
-[ ] add music
-[ ] animated sprites
+[] add music
+[] animated sprites
