@@ -40,14 +40,16 @@ a sample of the code used to make things happen.
     lives.textContent = newLives;
     hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
     return true;
-}``` used to respawn our hero upon contact with the monster while also removing 1 life counter and spawning a new hero.
-```
-function spawnFinishFlag() {
+}```
+ used to respawn our hero upon contact with the monster while also removing 1 life counter and spawning a new hero.
+
+```function spawnFinishFlag() {
     checkPointFlag.exists = false;
     checkPointFlag.obtained = true;
     finishFlag = new Flag(50, game.height - 50, finishFlagImage, 25, 25);
     finishFlag.render();
-}``` upon obtaining the checkPointFlag this will create our victory flag
+}```
+upon obtaining the checkPointFlag this will create our victory flag
 
 ```function youWin() {
     //victory condition
@@ -55,13 +57,15 @@ function spawnFinishFlag() {
     ctx.font = "150px Mountains of Christmas";
     ctx.textAlign = "center"
     ctx.fillText('YOU WIN', game.width / 2, game.height / 2);
-}``` this will display our victory message in the middle of the canvas while clearing it.
+}```
+this will display our victory message in the middle of the canvas while clearing it.
 
 ```function youLose() {
     ctx.font = "75px Mountains of Christmas";
     ctx.textAlign = "center"
     ctx.fillText('You have run out of lives, you Lose!', game.width / 2, game.height / 2);
-}```  activates when hero life count reaches zero thus activating defeat conditions.
+}```
+ activates when hero life count reaches zero thus activating defeat conditions.
 
 ```class Climber {
     constructor(x, y, image, width, height) {
