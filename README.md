@@ -97,9 +97,9 @@ class Flag {
 ``` 
 
 UNSOLVED PROBLEMS:
-[] getting 5 monsters to spawn upon capturing the checkpoint flag 
-[] randomizing the monster movement
+[ ] getting 5 monsters to spawn upon capturing the checkpoint flag 
+[ ] randomizing the monster movement
 
 STRETCH GOALS
-[] add music
-[] animated sprites
+[ ] add music
+[ ] animated sprites
