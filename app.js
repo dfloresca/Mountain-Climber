@@ -7,9 +7,11 @@ const item = document.querySelector('#item');
 const lives = document.querySelector('#lives');
 const ctx = game.getContext('2d');
 const abomasnowImage = document.querySelector('#abomasnow');
+const glalieImage = document.querySelector('#glalie');
 const heroImage = document.querySelector('#hero');
 const flagImage = document.querySelector('#flag');
 const finishFlagImage = document.querySelector('#finishflag');
+const monsters = [];
 
 let heroRandomX = Math.floor(Math.random() * game.width);
 let heroRandomY = Math.floor(Math.random() * game.height);
@@ -19,6 +21,7 @@ let flagRandomX = Math.floor(Math.random() * game.width);
 let flagRandomY = Math.floor(Math.random() * game.height);
 let hero;
 let monster;
+let monster2;
 let checkPointFlag;
 let finishFlag;
 //paint initial screen
@@ -49,6 +52,7 @@ class Climber {
         this.width = width;
         this.height = height;
         this.alive = true;
+        this.summoned = false;
 
         this.render = function () {
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
@@ -91,20 +95,20 @@ function respawnHero() {
     return true;
 }
 function monsterParty() {
-    let monsterRandomX = Math.floor(Math.random() * game.width);
-    let monsterRandomY = Math.floor(Math.random() * game.height);
-    const monsterA = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
-    const monsterB = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
-    const monsterC = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
-    const monsterD = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
-    const monsterE = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96);
-    monsterA.render();
-    monsterB.render();
-    monsterC.render();
-    monsterD.render();
-    monsterE.render();
+    while (monsters.length < 5) {
+        let monsterRandomX = Math.floor(Math.random() * game.width);
+        let monsterRandomY = Math.floor(Math.random() * game.height);
+        const newMonster = new Climber(monsterRandomX, monsterRandomY, abomasnowImage, 96, 96)
+        monsters.push(newMonster);
+    }
+    return monsters, monster.summoned = true;
 }
-
+function summonMonsters() {
+    console.log('calling the monsters');
+    for (let i = 0; i < monsters.length; i++) {
+        monsters[i].render();
+    }
+}
 
 function spawnFinishFlag() {
     checkPointFlag.exists = false;
@@ -138,6 +142,10 @@ function gameLoop() {
     if (finishFlag.exists) {
         let victoryHit = victory(hero, finishFlag)
     }
+    if (monster.summoned) {
+        return summonMonsters();
+    }
+
 }
 
 //defeat condition
