@@ -11,6 +11,7 @@ const glalieImage = document.querySelector('#glalie');
 const heroImage = document.querySelector('#hero');
 const flagImage = document.querySelector('#flag');
 const finishFlagImage = document.querySelector('#finishflag');
+const restartBtn = document.querySelector('#restart');
 
 let heroRandomX = Math.floor(Math.random() * game.width);
 let heroRandomY = Math.floor(Math.random() * game.height);
@@ -33,6 +34,7 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('keydown', movementHandler);
+document.addEventListener('click', restartGame)
 
 // setup Canvas Rendering
 game.setAttribute('height', getComputedStyle(game)['height']);
@@ -80,6 +82,14 @@ function movementHandler(e) {
         hero.x + 20 <= game.width - hero.width ? (hero.x += 20) : null;
     }
 }
+
+// button logic
+function restartGame(e) {
+    restartBtn.clicked;
+    document.location.reload();
+    clearInterval(interval);
+}
+
 //helper functions
 function respawnHero() {
     hero.alive = false;
@@ -192,7 +202,6 @@ function victory(player, opp) {
     );
 
     if (victoryHitTest) {
-        console.log('flag obtained')
         finishFlag.exists = false;
         finishFlag.obtained = true;        
     }
