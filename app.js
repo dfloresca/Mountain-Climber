@@ -26,11 +26,14 @@ let finishFlag;
 window.addEventListener('DOMContentLoaded', function () {
     //load the hero and monster on screen
     hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
-    monster = new Climber(game.width * .85, game.height * .60, abomasnowImage, 96, 96);
-    monster2 = new Climber(game.width * .55, game.height * .40, glalieImage, 96, 96);
+    monster = new Enemy(game.width * .85, game.height * .60, abomasnowImage, 96, 96);
+    monster2 = new Enemy(game.width * .55, game.height * .40, glalieImage, 96, 96);
     checkPointFlag = new Flag(game.width - 100, game.height * .35, flagImage, 25, 25);
 
     let runGame = this.setInterval(gameLoop, 60);
+
+    monster.monsterAIMovement()
+    monster2.monsterAIMovement()
 });
 
 document.addEventListener('keydown', movementHandler);
@@ -138,6 +141,8 @@ function movementHandler(e) {
     } else if (e.key === 'd' || e.key === 'ArrowRight') {
         hero.x + 20 <= game.width - hero.width ? (hero.x += 20) : null;
     }
+    monster.monsterAIMovement()
+    monster2.monsterAIMovement()
 }
 
 // button logic
