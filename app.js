@@ -12,6 +12,7 @@ const heroImage = document.querySelector('#hero');
 const flagImage = document.querySelector('#flag');
 const finishFlagImage = document.querySelector('#finishflag');
 const restartBtn = document.querySelector('#restart');
+const articuno = document.querySelector('#articuno');
 
 let heroRandomX = Math.floor(Math.random() * game.width);
 let heroRandomY = Math.floor(Math.random() * game.height);
@@ -82,50 +83,47 @@ class Enemy extends Climber {
             // make a conditional for each direction
             // first move the monster up, then move to the right, then to the left, the down and repeat
             console.log('monster AI');
-            this.moveUp();
-            this.moveUp();
-
-            setTimeout(() => {
+            let mvmtNum = Math.floor(Math.random() * 4);
+            if (mvmtNum === 1) {
+                this.moveUp();
+            } else if (mvmtNum === 2) {
                 this.moveRight();
-                this.moveRight();
-            }, 500);
-
-            setTimeout(() => {
+            } else if (mvmtNum === 3) {
                 this.moveDown();
-                this.moveDown();
-            }, 1000);
-
+            } else if (mvmtNum === 4) {
+                this.moveLeft();
+            }
         }
 
         this.moveUp = function () {
-            if (this.y - 10 >= 0) {
-                this.y -= 10;
+            if (this.y - 20 >= 0) {
+                this.y -= 20;
             } else {
-                this.y = 100
+                this.moveDown();
             }
         }
 
         this.moveRight = function () {
-            if (this.x + 10 <= game.width - this.width) {
-                this.x += 10;
+            if (this.x + 20 <= game.width - this.width) {
+                this.x += 20;
             } else {
-                this.x = 100;
+                this.moveLeft();
             }
         }
 
         this.moveDown = function () {
-            if (this.y + 10 <= game.height - this.height) {
-                this.y += 10
+            if (this.y + 20 <= game.height - this.height) {
+                this.y += 20
             } else {
-                this.y = 100;
+                this.moveUp();
             }
         }
 
         this.moveLeft = function () {
-            if (this.x - 10 >= 10) {
-                this.x -= 10
+            if (this.x - 20 >= 20) {
+                this.x -= 20
             } else {
-                this.x = 100;
+                this.moveRight();
             }
         }
     }
@@ -155,10 +153,14 @@ function restartGame(e) {
 //helper functions
 function respawnHero() {
     hero.alive = false;
-    let newLives = Number(lives.textContent) - 1;
-    lives.textContent = newLives;
-    hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
-    return true;
+    if (checkPointFlag.exists === true) {
+        let newLives = Number(lives.textContent) - 1;
+        lives.textContent = newLives;
+        hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
+    } else if (checkPointFlag === false) {
+        hero = new Climber(game.width - 100, game.height * .35, heroImage, 64, 64)
+        return true;
+    }
 }
 
 function spawnFinishFlag() {
