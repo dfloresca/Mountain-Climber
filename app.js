@@ -157,7 +157,7 @@ function movementHandler(e) {
 function restartGame(e) {
     restartBtn.clicked;
     document.location.reload();
-    clearInterval(interval);
+    
 }
 
 //helper functions
