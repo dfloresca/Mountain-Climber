@@ -1,26 +1,27 @@
 # Mountain-Climber
 
+## screenshots
 beginning of the game
-![Alt text](<img/beginning of game.png>)
+![beginning of game](<img/beginning of game.png>)
 
 After capturing the checkPoint
-![Alt text](<img/flag captured.png>)
+![Checkpoint captured](<img/flag captured.png>)
 
 after returning to the victory flag => win
-![Alt text](img/declaration_of_victory.png)
+![Victory](img/declaration_of_victory.png)
 
 close up of the sprites
-![Alt text](img/Sprites.png)
+![Sprites](img/Sprites.png)
 defeat -> run out of lives from hitting monsters
-![Alt text](img/defeat.png)
+![Defeat](img/defeat.png)
 
-EXPLANATION OF TECHNOLOGIES
+## EXPLANATION OF TECHNOLOGIES
 In this we are using classes to create the hero and 2 monsters using the Climber class. The checkpoint Flag and victory flag are created using the flag class. 
 Utilizing 'keydown' we track keystrokes to move our hero to the checkpoint flag which then despawns and spawns the finish flag. Upon reaching that the game ends and victory is obtained.
 
 Hit detection is used to track contact with the flags as well as the monsters. When our hero hits a monster they die and randomly respawn on the bottom of the map to try again. A life is taken away at this point.
 
-INSTALLATION INSTRUCTIONS
+## INSTALLATION INSTRUCTIONS
 Open the web page to begin playing. 
 how to play:
 * Move the hero 'up' by using 'w' or 'UpArrow'
@@ -28,10 +29,10 @@ how to play:
 * Move the hero 'down' by using 's' or 'DownArrow'
 * Move the hero 'right' by using 'd' or 'RightArrow'
 
-APPROACH TAKEN:
+## APPROACH TAKEN:
 I utilized a similar approach as our shrek crawler game.
 
-CODE SNIPPETS: 
+## CODE SNIPPETS: 
 
 a sample of the code used to make things happen.
 ```javascript
@@ -97,10 +98,10 @@ class Flag {
 //the classes used to create our hero, monster and flags
 ``` 
 
-UNSOLVED PROBLEMS:
+## UNSOLVED PROBLEMS:
 [ ] getting 5 monsters to spawn upon capturing the checkpoint flag 
 [ ] randomizing the monster movement
 
-STRETCH GOALS
+## STRETCH GOALS
 [ ] add music
 [ ] animated sprites

@@ -20,7 +20,7 @@ canvas {
 
 #container {
     max-width: 1000px;
-    /* height: 70vh; */
+    max-height: 650px;
     background-color: rgba(5, 153, 62, 0.682);
     margin: 0 auto;
     padding: 1em;
