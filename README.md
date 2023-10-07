@@ -78,35 +78,6 @@ div id="container">
 ```
 
 ```javascript
-function respawnHero() {
-    hero.alive = false;
-    let newLives = Number(lives.textContent) - 1;
-    lives.textContent = newLives;
-    hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
-    return true;
-}
- // used to respawn our hero upon contact with the monster while also removing 1 life counter and spawning a new hero.
-
-function spawnFinishFlag() {
-    checkPointFlag.exists = false;
-    checkPointFlag.obtained = true;
-    finishFlag = new Flag(50, game.height - 50, finishFlagImage, 25, 25);
-    finishFlag.render();
-} //upon obtaining the checkPointFlag this will create our victory flag
-
-function youWin() {
-    //victory condition
-    finishFlag.exists = false;
-    ctx.font = "150px Mountains of Christmas";
-    ctx.textAlign = "center"
-    ctx.fillText('YOU WIN', game.width / 2, game.height / 2);
-} //this will display our victory message in the middle of the canvas while clearing it.
-
-function youLose() {
-    ctx.font = "75px Mountains of Christmas";
-    ctx.textAlign = "center"
-    ctx.fillText('You have run out of lives, you Lose!', game.width / 2, game.height / 2);
-} // activates when hero life count reaches zero thus activating defeat conditions.
 
 class Climber {
     constructor(x, y, image, width, height) {
@@ -137,7 +108,84 @@ class Flag {
         }
     }
 }
-//the classes used to create our hero, monster and flags
+class Enemy extends Climber {
+    constructor(...args) {
+        super(...args)
+
+
+        this.monsterAIMovement = function () {
+            // make a conditional for each direction
+            // first move the monster up, then move to the right, then to the left, the down and repeat
+            let mvmtNum = Math.floor(Math.random() * 4);
+            if (mvmtNum === 1) {
+                this.moveUp();
+            } else if (mvmtNum === 2) {
+                this.moveRight();
+            } else if (mvmtNum === 3) {
+                this.moveDown();
+            } else if (mvmtNum === 4) {
+                this.moveLeft();
+            }
+        }
+
+        this.moveUp = function () {
+            if (this.y - 20 >= 0 || this.y - 20 >= (game.height * .35) - this.height) {
+                this.y -= 20;
+            } else {
+                this.moveDown();
+            }
+        }
+
+        this.moveRight = function () {
+            if (this.x + 20 <= game.width - this.width || this.x + 20 <= (game.width - 100) - this.width) {
+                this.x += 20;
+            } else {
+                this.moveLeft();
+            }
+        }
+
+        this.moveDown = function () {
+            if (this.y + 20 <= game.height - this.height || this.y + 20 <= (game.height * .35) - this.height) {
+                this.y += 20
+            } else {
+                this.moveUp();
+            }
+        }
+
+        this.moveLeft = function () {
+            if (this.x - 20 >= 20 || this.x - 20 >= (game.width - 100) + this.width) {
+                this.x -= 20
+            } else {
+                this.moveRight();
+            }
+        }
+    }
+}
+//The movement handler
+function movementHandler(e) {
+    if (e.key === 'w' || e.key === 'ArrowUp') {
+        hero.y - 20 >= 0 ? (hero.y -= 20) : null;
+        monster.monsterAIMovement();
+        monster2.monsterAIMovement();
+        monster3.monsterAIMovement();
+    } else if (e.key === 's' || e.key === 'ArrowDown') {
+        hero.y + 20 <= game.height - hero.height ? (hero.y += 20) : null;
+        monster.monsterAIMovement();
+        monster2.monsterAIMovement();
+        monster3.monsterAIMovement();
+    } else if (e.key === 'a' || e.key === 'ArrowLeft') {
+        hero.x - 20 >= 0 ? (hero.x -= 20) : null;
+        monster.monsterAIMovement();
+        monster2.monsterAIMovement();
+        monster3.monsterAIMovement();
+    } else if (e.key === 'd' || e.key === 'ArrowRight') {
+        hero.x + 20 <= game.width - hero.width ? (hero.x += 20) : null;
+        monster.monsterAIMovement();
+        monster2.monsterAIMovement();
+        monster3.monsterAIMovement();
+    }
+
+}
 ``` 
 
 ## UNSOLVED PROBLEMS:
