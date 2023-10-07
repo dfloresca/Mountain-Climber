@@ -9,7 +9,7 @@ const ctx = game.getContext('2d');
 const abomasnowImage = document.querySelector('#abomasnow');
 const glalieImage = document.querySelector('#glalie');
 const heroImage = document.querySelector('#hero');
-const flagImage = document.querySelector('#flag');
+const egg = document.querySelector('#egg');
 const finishFlagImage = document.querySelector('#finishflag');
 const restartBtn = document.querySelector('#restart');
 const articuno = document.querySelector('#articuno');
@@ -20,7 +20,7 @@ let hero;
 let monster;
 let monster2;
 let monster3;
-let checkPointFlag;
+let pokemonEgg;
 let finishFlag;
 //paint initial screen
 //event listener
@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', function () {
     monster = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), abomasnowImage, 96, 96);
     monster2 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), glalieImage, 96, 96);
     monster3 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), articuno, 96, 96)
-    checkPointFlag = new Flag(game.width - 100, game.height * .35, flagImage, 25, 25);
+    pokemonEgg = new Flag(game.width - 100, game.height * .35, egg, 50, 50);
 
     let runGame = this.setInterval(gameLoop, 60);
 
@@ -95,32 +95,32 @@ class Enemy extends Climber {
         }
 
         this.moveUp = function () {
-            if (this.y - 20 >= 0 || this.y - 20 >= (game.height * .35) - this.height) {
-                this.y -= 20;
+            if (this.y - 30 >= 0 || this.y - 30 >= (game.height * .35) - this.height) {
+                this.y -= 30;
             } else {
                 this.moveDown();
             }
         }
 
         this.moveRight = function () {
-            if (this.x + 20 <= game.width - this.width || this.x + 20 <= (game.width - 100) - this.width) {
-                this.x += 20;
+            if (this.x + 30 <= game.width - this.width || this.x + 30 <= (game.width - 100) - this.width) {
+                this.x += 30;
             } else {
                 this.moveLeft();
             }
         }
 
         this.moveDown = function () {
-            if (this.y + 20 <= game.height - this.height || this.y + 20 <= (game.height * .35) - this.height) {
-                this.y += 20
+            if (this.y + 30 <= game.height - this.height || this.y + 30 <= (game.height * .35) - this.height) {
+                this.y += 30
             } else {
                 this.moveUp();
             }
         }
 
         this.moveLeft = function () {
-            if (this.x - 20 >= 20 || this.x - 20 >= (game.width - 100) + this.width) {
-                this.x -= 20
+            if (this.x - 30 >= 30 || this.x - 30 >= (game.width - 100) + this.width) {
+                this.x -= 30
             } else {
                 this.moveRight();
             }
@@ -157,13 +157,12 @@ function movementHandler(e) {
 function restartGame(e) {
     restartBtn.clicked;
     document.location.reload();
-    
 }
 
 //helper functions
 function respawnHero() {
     hero.alive = false;
-    if (checkPointFlag.exists === true) {
+    if (pokemonEgg.exists === true) {
         let newLives = Number(lives.textContent) - 1;
         lives.textContent = newLives;
         hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
@@ -174,7 +173,7 @@ function respawnHero() {
         monster2 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), glalieImage, 96, 96);
         monster3 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), articuno, 96, 96)
         return true;
-    } else if (checkPointFlag.exists === false) {
+    } else if (pokemonEgg.exists === false) {
         let newLives = Number(lives.textContent) - 1;
         lives.textContent = newLives;
         hero = new Climber(game.width - 100, game.height * .35, heroImage, 64, 64);
@@ -189,8 +188,8 @@ function respawnHero() {
 }
 
 function spawnFinishFlag() {
-    checkPointFlag.exists = false;
-    checkPointFlag.obtained = true;
+    pokemonEgg.exists = false;
+    pokemonEgg.obtained = true;
     finishFlag = new Flag(50, game.height - 50, finishFlagImage, 25, 25);
     finishFlag.render();
 }
@@ -233,10 +232,10 @@ function gameLoop() {
         hero.render();
     }
     //check to see if flag has been obtained
-    if (checkPointFlag.exists) {
-        checkPointFlag.render();
-        let capture = detectCapture(hero, checkPointFlag)
-    } else if (checkPointFlag.obtained) {
+    if (pokemonEgg.exists) {
+        pokemonEgg.render();
+        let capture = detectCapture(hero, pokemonEgg)
+    } else if (pokemonEgg.obtained) {
         finishFlag.render();
         let victoryHit = victory(hero, finishFlag)
     }
