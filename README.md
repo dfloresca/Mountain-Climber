@@ -189,9 +189,11 @@ function movementHandler(e) {
 ``` 
 
 ## UNSOLVED PROBLEMS:
-[ ] getting 5 monsters to spawn upon capturing the checkpoint flag 
-[ ] randomizing the monster movement
+[ ] getting more monsters to spawn upon capturing the checkpoint flag 
+[x] randomizing the monster movement
+
 
 ## STRETCH GOALS
 [ ] add music
 [ ] animated sprites
+[ ] create a 'predator' class that chases player
