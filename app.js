@@ -96,7 +96,7 @@ class Enemy extends Climber {
         }
 
         this.moveUp = function () {
-            if (this.y - 20 >= 0) {
+            if (this.y - 20 >= 0 || this.y - 20 >= checkPointFlag.y + 15) {
                 this.y -= 20;
             } else {
                 this.moveDown();
@@ -104,7 +104,7 @@ class Enemy extends Climber {
         }
 
         this.moveRight = function () {
-            if (this.x + 20 <= game.width - this.width) {
+            if (this.x + 20 <= game.width - this.width || this.x + 20 <= checkPointFlag.x - 15) {
                 this.x += 20;
             } else {
                 this.moveLeft();
@@ -112,7 +112,7 @@ class Enemy extends Climber {
         }
 
         this.moveDown = function () {
-            if (this.y + 20 <= game.height - this.height) {
+            if (this.y + 20 <= game.height - this.height || this.y + 20 <= checkPointFlag.y - 15) {
                 this.y += 20
             } else {
                 this.moveUp();
@@ -120,7 +120,7 @@ class Enemy extends Climber {
         }
 
         this.moveLeft = function () {
-            if (this.x - 20 >= 20) {
+            if (this.x - 20 >= 20 || this.x - 20 >= checkPointFlag.x + 15) {
                 this.x -= 20
             } else {
                 this.moveRight();
@@ -132,15 +132,22 @@ class Enemy extends Climber {
 function movementHandler(e) {
     if (e.key === 'w' || e.key === 'ArrowUp') {
         hero.y - 20 >= 0 ? (hero.y -= 20) : null;
+        monster.monsterAIMovement();
+        monster2.monsterAIMovement();
     } else if (e.key === 's' || e.key === 'ArrowDown') {
         hero.y + 20 <= game.height - hero.height ? (hero.y += 20) : null;
+        monster.monsterAIMovement();
+        monster2.monsterAIMovement();
     } else if (e.key === 'a' || e.key === 'ArrowLeft') {
         hero.x - 20 >= 0 ? (hero.x -= 20) : null;
+        monster.monsterAIMovement();
+        monster2.monsterAIMovement();
     } else if (e.key === 'd' || e.key === 'ArrowRight') {
         hero.x + 20 <= game.width - hero.width ? (hero.x += 20) : null;
+        monster.monsterAIMovement();
+        monster2.monsterAIMovement();
     }
-    monster.monsterAIMovement()
-    monster2.monsterAIMovement()
+
 }
 
 // button logic
@@ -157,7 +164,10 @@ function respawnHero() {
         let newLives = Number(lives.textContent) - 1;
         lives.textContent = newLives;
         hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
-    } else if (checkPointFlag === false) {
+        return true;
+    } else if (checkPointFlag.exists === false) {
+        let newLives = Number(lives.textContent) - 1;
+        lives.textContent = newLives;
         hero = new Climber(game.width - 100, game.height * .35, heroImage, 64, 64)
         return true;
     }
