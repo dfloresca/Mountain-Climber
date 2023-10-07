@@ -33,12 +33,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
     let runGame = this.setInterval(gameLoop, 60);
 
-    monster.monsterAIMovement()
-    monster2.monsterAIMovement()
 });
 
 document.addEventListener('keydown', movementHandler);
-document.addEventListener('click', restartGame)
+restartBtn.addEventListener('click', restartGame)
 
 // setup Canvas Rendering
 game.setAttribute('height', getComputedStyle(game)['height']);
@@ -94,9 +92,9 @@ class Enemy extends Climber {
                 this.moveLeft();
             }
         }
-
+        
         this.moveUp = function () {
-            if (this.y - 20 >= 0 || this.y - 20 >= checkPointFlag.y + 15) {
+            if (this.y - 20 >= 0 || this.y - 20 >= (game.height * .35) - this.height) {
                 this.y -= 20;
             } else {
                 this.moveDown();
@@ -104,7 +102,7 @@ class Enemy extends Climber {
         }
 
         this.moveRight = function () {
-            if (this.x + 20 <= game.width - this.width || this.x + 20 <= checkPointFlag.x - 15) {
+            if (this.x + 20 <= game.width - this.width || this.x + 20 <= (game.width - 100) - this.width) {
                 this.x += 20;
             } else {
                 this.moveLeft();
@@ -112,7 +110,7 @@ class Enemy extends Climber {
         }
 
         this.moveDown = function () {
-            if (this.y + 20 <= game.height - this.height || this.y + 20 <= checkPointFlag.y - 15) {
+            if (this.y + 20 <= game.height - this.height || this.y + 20 <= (game.height * .35) - this.height) {
                 this.y += 20
             } else {
                 this.moveUp();
@@ -120,7 +118,7 @@ class Enemy extends Climber {
         }
 
         this.moveLeft = function () {
-            if (this.x - 20 >= 20 || this.x - 20 >= checkPointFlag.x + 15) {
+            if (this.x - 20 >= 20 || this.x - 20 >= (game.width - 100) + this.width) {
                 this.x -= 20
             } else {
                 this.moveRight();
