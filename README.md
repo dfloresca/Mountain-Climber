@@ -11,7 +11,7 @@ after returning to the victory flag => win
 ![Victory](img/declaration_of_victory.png)
 
 close up of the sprites
-![Sprites](img/Sprites.png)
+(![Sprites](<img/more sprites.png>))
 defeat -> run out of lives from hitting monsters
 ![Defeat](img/defeat.png)
 
@@ -35,6 +35,48 @@ I utilized a similar approach as our shrek crawler game, however, focused on usi
 ## CODE SNIPPETS: 
 
 a sample of the code used to make things happen.
+```html
+div id="container">
+        <aside id="top-left">
+            <h2>Climb the Mountain</h2>
+        </aside>
+        <aside id="top-right">
+            <h1 class="special">Location: </h1>
+            <h2 id="movement"></h2>
+        </aside>
+        <main>
+            <canvas id="game"> <!-- play it, a game --> </canvas>
+        </main>
+        <aside id="btm-left">
+            <h1 class="special">Items: </h1>
+            <h2 id="item">none</h2> <br/>
+            
+        </aside>
+        <aside id="btm-right">
+            <h1 class="special">Lives: </h1>
+            <h2 id="lives">3</h2>
+        </aside>
+    </div>
+```
+
+
+```CSS
+#container {
+    max-width: 1000px;
+    max-height: 650px;
+    background-color: rgba(5, 153, 62, 0.682);
+    margin: 0 auto;
+    padding: 1em;
+    display: grid;
+    gap: 1em;
+    grid-template-rows: .25fr .5fr .25fr;
+    grid-template-columns: .25fr .5fr .25fr;
+    grid-template-areas: "top-left top-left top-right"
+                          "game game game"
+                          "btm-left btm-right btm-right";
+    }
+```
+
 ```javascript
 function respawnHero() {
     hero.alive = false;
