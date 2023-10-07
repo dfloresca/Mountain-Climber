@@ -19,6 +19,7 @@ let heroRandomY = Math.floor(Math.random() * game.height);
 let hero;
 let monster;
 let monster2;
+let monster3;
 let checkPointFlag;
 let finishFlag;
 //paint initial screen
@@ -27,8 +28,9 @@ let finishFlag;
 window.addEventListener('DOMContentLoaded', function () {
     //load the hero and monster on screen
     hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
-    monster = new Enemy(game.width * .85, game.height * .60, abomasnowImage, 96, 96);
-    monster2 = new Enemy(game.width * .55, game.height * .40, glalieImage, 96, 96);
+    monster = new Enemy(Math.floor(Math.random() * game.width), Math.floor(Math.random() * game.height), abomasnowImage, 96, 96);
+    monster2 = new Enemy(Math.floor(Math.random() * game.width), Math.floor(Math.random() * game.height), glalieImage, 96, 96);
+    monster3 = new Enemy(Math.floor(Math.random() * game.width), Math.floor(Math.random() * game.height), articuno, 96, 96)
     checkPointFlag = new Flag(game.width - 100, game.height * .35, flagImage, 25, 25);
 
     let runGame = this.setInterval(gameLoop, 60);
@@ -92,7 +94,7 @@ class Enemy extends Climber {
                 this.moveLeft();
             }
         }
-        
+
         this.moveUp = function () {
             if (this.y - 20 >= 0 || this.y - 20 >= (game.height * .35) - this.height) {
                 this.y -= 20;
@@ -132,18 +134,22 @@ function movementHandler(e) {
         hero.y - 20 >= 0 ? (hero.y -= 20) : null;
         monster.monsterAIMovement();
         monster2.monsterAIMovement();
+        monster3.monsterAIMovement();
     } else if (e.key === 's' || e.key === 'ArrowDown') {
         hero.y + 20 <= game.height - hero.height ? (hero.y += 20) : null;
         monster.monsterAIMovement();
         monster2.monsterAIMovement();
+        monster3.monsterAIMovement();
     } else if (e.key === 'a' || e.key === 'ArrowLeft') {
         hero.x - 20 >= 0 ? (hero.x -= 20) : null;
         monster.monsterAIMovement();
         monster2.monsterAIMovement();
+        monster3.monsterAIMovement();
     } else if (e.key === 'd' || e.key === 'ArrowRight') {
         hero.x + 20 <= game.width - hero.width ? (hero.x += 20) : null;
         monster.monsterAIMovement();
         monster2.monsterAIMovement();
+        monster3.monsterAIMovement();
     }
 
 }
@@ -166,7 +172,13 @@ function respawnHero() {
     } else if (checkPointFlag.exists === false) {
         let newLives = Number(lives.textContent) - 1;
         lives.textContent = newLives;
-        hero = new Climber(game.width - 100, game.height * .35, heroImage, 64, 64)
+        hero = new Climber(game.width - 100, game.height * .35, heroImage, 64, 64);
+        monster.alive = false;
+        monster2.alive = false;
+        monster3.alive = false;
+        monster = new Enemy(Math.floor(Math.random() * game.width), Math.floor(Math.random() * game.height), abomasnowImage, 96, 96);
+        monster2 = new Enemy(Math.floor(Math.random() * game.width), Math.floor(Math.random() * game.height), glalieImage, 96, 96);
+        monster3 = new Enemy(Math.floor(Math.random() * game.width), Math.floor(Math.random() * game.height), articuno, 96, 96)
         return true;
     }
 }
@@ -206,6 +218,10 @@ function gameLoop() {
     if (monster2.alive) {
         monster2.render();
         let hit = detectHit(hero, monster2);
+    }
+    if (monster3.alive) {
+        monster3.render();
+        let hit = detectHit(hero, monster3);
     }
     //check if hero is alive
     if (hero.alive) {
