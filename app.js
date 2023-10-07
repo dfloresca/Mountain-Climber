@@ -82,7 +82,6 @@ class Enemy extends Climber {
         this.monsterAIMovement = function () {
             // make a conditional for each direction
             // first move the monster up, then move to the right, then to the left, the down and repeat
-            console.log('monster AI');
             let mvmtNum = Math.floor(Math.random() * 4);
             if (mvmtNum === 1) {
                 this.moveUp();
@@ -198,7 +197,7 @@ function spawnFinishFlag() {
 
 function youWin() {
     //victory condition
-    finishFlag.exists = false;
+    finishFlag.obtained = true;
     ctx.font = "150px Mountains of Christmas";
     ctx.textAlign = "center"
     ctx.fillText('YOU WIN', game.width / 2, game.height / 2);
@@ -237,7 +236,7 @@ function gameLoop() {
     if (checkPointFlag.exists) {
         checkPointFlag.render();
         let capture = detectCapture(hero, checkPointFlag)
-    } else {
+    } else if (checkPointFlag.obtained) {
         finishFlag.render();
         let victoryHit = victory(hero, finishFlag)
     }
@@ -248,10 +247,7 @@ function gameLoop() {
         ctx.clearRect(0, 0, game.width, game.height);
         return youLose();
     }
-    if (finishFlag.obtained && checkPointFlag.obtained) {
-        ctx.clearRect(0, 0, game.width, game.height);
-        return youWin();
-    }
+
 
 }
 
@@ -298,7 +294,7 @@ function victory(player, opp) {
     if (victoryHitTest) {
         finishFlag.exists = false;
         finishFlag.obtained = true;
+        ctx.clearRect(0, 0, game.width, game.height);
+        return youWin();
     }
 }
-
-//==============AI Movement ====================

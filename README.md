@@ -30,7 +30,7 @@ how to play:
 * Move the hero 'right' by using 'd' or 'RightArrow'
 
 ## APPROACH TAKEN:
-I utilized a similar approach as our shrek crawler game.
+I utilized a similar approach as our shrek crawler game, however, focused on using hits by the ai characters as a means of defeat. Using hitboxes with the flags I created victory conditions.
 
 ## CODE SNIPPETS: 
 
