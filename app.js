@@ -28,9 +28,9 @@ let finishFlag;
 window.addEventListener('DOMContentLoaded', function () {
     //load the hero and monster on screen
     hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
-    monster = new Enemy(Math.floor(Math.random() * game.width -96), Math.floor(Math.random() * game.height -96), abomasnowImage, 96, 96);
-    monster2 = new Enemy(Math.floor(Math.random() * game.width -96), Math.floor(Math.random() * game.height -96), glalieImage, 96, 96);
-    monster3 = new Enemy(Math.floor(Math.random() * game.width -96), Math.floor(Math.random() * game.height -96), articuno, 96, 96)
+    monster = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), abomasnowImage, 96, 96);
+    monster2 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), glalieImage, 96, 96);
+    monster3 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), articuno, 96, 96)
     checkPointFlag = new Flag(game.width - 100, game.height * .35, flagImage, 25, 25);
 
     let runGame = this.setInterval(gameLoop, 60);
@@ -168,6 +168,12 @@ function respawnHero() {
         let newLives = Number(lives.textContent) - 1;
         lives.textContent = newLives;
         hero = new Climber(heroRandomX, game.height - 70, heroImage, 64, 64);
+        monster.alive = false;
+        monster2.alive = false;
+        monster3.alive = false;
+        monster = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), abomasnowImage, 96, 96);
+        monster2 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), glalieImage, 96, 96);
+        monster3 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), articuno, 96, 96)
         return true;
     } else if (checkPointFlag.exists === false) {
         let newLives = Number(lives.textContent) - 1;
@@ -176,9 +182,9 @@ function respawnHero() {
         monster.alive = false;
         monster2.alive = false;
         monster3.alive = false;
-        monster = new Enemy(Math.floor(Math.random() * game.width -96), Math.floor(Math.random() * game.height -96), abomasnowImage, 96, 96);
-        monster2 = new Enemy(Math.floor(Math.random() * game.width -96), Math.floor(Math.random() * game.height -96), glalieImage, 96, 96);
-        monster3 = new Enemy(Math.floor(Math.random() * game.width -96), Math.floor(Math.random() * game.height -96), articuno, 96, 96)
+        monster = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), abomasnowImage, 96, 96);
+        monster2 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), glalieImage, 96, 96);
+        monster3 = new Enemy(Math.floor(Math.random() * game.width - 96), Math.floor(Math.random() * game.height - 96), articuno, 96, 96)
         return true;
     }
 }
