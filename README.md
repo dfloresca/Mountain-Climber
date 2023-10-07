@@ -34,7 +34,11 @@ I utilized a similar approach as our shrek crawler game.
 CODE SNIPPETS: 
 
 a sample of the code used to make things happen.
+<<<<<<< HEAD
 ```javaScript
+=======
+```javascript
+>>>>>>> dc3438d7951e3dd35757861036da555701174d58
 function respawnHero() {
     hero.alive = false;
     let newLives = Number(lives.textContent) - 1;
