@@ -20,6 +20,7 @@ let hero;
 let monster;
 let monster2;
 let monster3;
+const monsters = [monster, monster2, monster3];
 let pokemonEgg;
 let finishFlag;
 //paint initial screen

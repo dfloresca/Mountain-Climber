@@ -22,7 +22,9 @@ Utilizing 'keydown' we track keystrokes to move our hero to the checkpoint flag 
 Hit detection is used to track contact with the flags as well as the monsters. When our hero hits a monster they die and randomly respawn on the bottom of the map to try again. A life is taken away at this point.
 
 ## INSTALLATION INSTRUCTIONS
-Open the web page to begin playing. 
+Fork and clone this repo, then navigate to the folder and launch index.html
+or
+Open the web page at dfloresca.github.io/Mountain-Climber  to begin playing. 
 how to play:
 * Move the hero 'up' by using 'w' or 'UpArrow'
 * Move the hero 'left' by using 'a' or 'LeftArrow'
