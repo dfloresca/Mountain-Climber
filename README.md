@@ -199,3 +199,4 @@ function movementHandler(e) {
 [ ] add music
 [ ] animated sprites
 [ ] create a 'predator' class that chases player
+[ ] Mobile-Friendly, touch controls

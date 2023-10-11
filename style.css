@@ -55,4 +55,6 @@ main {
 #btm-right {
     grid-area: btm-right;
 }
-
+#how-to-play {
+    font-size: 25px;
+}
